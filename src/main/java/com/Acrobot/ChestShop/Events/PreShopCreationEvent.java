@@ -25,6 +25,10 @@ public class PreShopCreationEvent extends Event {
         this.signLines = signLines.clone();
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * Returns if event is cancelled
      *
@@ -62,24 +66,6 @@ public class PreShopCreationEvent extends Event {
     }
 
     /**
-     * Sets the sign attached to the shop
-     *
-     * @param sign Shop sign
-     */
-    public void setSign(Sign sign) {
-        this.sign = sign;
-    }
-
-    /**
-     * Sets the text on the sign
-     *
-     * @param signLines Text to set
-     */
-    public void setSignLines(String[] signLines) {
-        this.signLines = signLines;
-    }
-
-    /**
      * Sets one of the lines on the sign
      *
      * @param line Line number to set (0-3)
@@ -108,6 +94,15 @@ public class PreShopCreationEvent extends Event {
     }
 
     /**
+     * Sets the sign attached to the shop
+     *
+     * @param sign Shop sign
+     */
+    public void setSign(Sign sign) {
+        this.sign = sign;
+    }
+
+    /**
      * Returns the text on the sign
      *
      * @param line Line number (0-3)
@@ -126,11 +121,16 @@ public class PreShopCreationEvent extends Event {
         return signLines;
     }
 
-    public HandlerList getHandlers() {
-        return handlers;
+    /**
+     * Sets the text on the sign
+     *
+     * @param signLines Text to set
+     */
+    public void setSignLines(String[] signLines) {
+        this.signLines = signLines;
     }
 
-    public static HandlerList getHandlerList() {
+    public HandlerList getHandlers() {
         return handlers;
     }
 

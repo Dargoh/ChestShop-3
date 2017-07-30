@@ -20,13 +20,18 @@ public class ShopCreatedEvent extends Event {
 
     private final Sign sign;
     private final String[] signLines;
-    @Nullable private final Chest chest;
+    @Nullable
+    private final Chest chest;
 
     public ShopCreatedEvent(Player creator, Sign sign, @Nullable Chest chest, String[] signLines) {
         this.creator = creator;
         this.sign = sign;
         this.chest = chest;
         this.signLines = signLines.clone();
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     /**
@@ -71,15 +76,12 @@ public class ShopCreatedEvent extends Event {
      *
      * @return Shop's chest
      */
-    @Nullable public Chest getChest() {
+    @Nullable
+    public Chest getChest() {
         return chest;
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

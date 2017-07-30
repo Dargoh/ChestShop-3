@@ -23,8 +23,8 @@ public class EconomicModule implements Listener {
         }
 
         CurrencyAddEvent currencyAddEvent = new CurrencyAddEvent(BigDecimal.valueOf(event.getPrice()),
-                                                            event.getOwner().getUniqueId(),
-                                                            event.getSign().getWorld());
+            event.getOwner().getUniqueId(),
+            event.getSign().getWorld());
         ChestShop.callEvent(currencyAddEvent);  // java.lang.StackOverflowError
 
         CurrencySubtractEvent currencySubtractEvent = new CurrencySubtractEvent(BigDecimal.valueOf(event.getPrice()), event.getClient());
@@ -38,8 +38,8 @@ public class EconomicModule implements Listener {
         }
 
         CurrencySubtractEvent currencySubtractEvent = new CurrencySubtractEvent(BigDecimal.valueOf(event.getPrice()),
-                                                                            event.getOwner().getUniqueId(),
-                                                                            event.getSign().getWorld());
+            event.getOwner().getUniqueId(),
+            event.getSign().getWorld());
         ChestShop.callEvent(currencySubtractEvent);
 
         CurrencyAddEvent currencyAddEvent = new CurrencyAddEvent(BigDecimal.valueOf(event.getPrice()), event.getClient());

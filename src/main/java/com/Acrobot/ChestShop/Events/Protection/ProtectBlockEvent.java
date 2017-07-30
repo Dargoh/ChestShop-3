@@ -11,15 +11,17 @@ import org.bukkit.event.HandlerList;
  */
 public class ProtectBlockEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
-
+    boolean isProtected = false;
     private Player player;
     private Block block;
-
-    boolean isProtected = false;
 
     public ProtectBlockEvent(Block block, Player player) {
         this.block = block;
         this.player = player;
+    }
+
+    public static HandlerList getHandlerList() {
+        return handlers;
     }
 
     public boolean isProtected() {
@@ -39,10 +41,6 @@ public class ProtectBlockEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

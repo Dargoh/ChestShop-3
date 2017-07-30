@@ -19,6 +19,14 @@ public class SimpleChestLock implements Listener {
         this.scl = scl;
     }
 
+    public static SimpleChestLock getSimpleChestLock(Plugin plugin) {
+        if (!(plugin instanceof SCL)) {
+            return null;
+        }
+
+        return new SimpleChestLock((SCL) plugin);
+    }
+
     @EventHandler
     public void onProtectionCheck(ProtectionCheckEvent event) {
         if (event.getResult() == Event.Result.DENY) {
@@ -37,13 +45,5 @@ public class SimpleChestLock implements Listener {
         if (!scl.chests.getOwner(block).equals(playerName)) {
             event.setResult(Event.Result.DENY);
         }
-    }
-
-    public static SimpleChestLock getSimpleChestLock(Plugin plugin) {
-        if (!(plugin instanceof SCL)) {
-            return null;
-        }
-
-        return new SimpleChestLock((SCL) plugin);
     }
 }

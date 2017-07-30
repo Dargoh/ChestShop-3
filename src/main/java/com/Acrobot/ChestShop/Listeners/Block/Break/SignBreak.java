@@ -23,7 +23,11 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.material.Directional;
 import org.bukkit.material.PistonBaseMaterial;
 import org.bukkit.metadata.FixedMetadataValue;
-import java.util.*;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 import static com.Acrobot.Breeze.Utils.BlockUtil.getAttachedBlock;
 import static com.Acrobot.Breeze.Utils.BlockUtil.isSign;

@@ -58,11 +58,11 @@ public class MaterialUtil {
 
         // Special check for books as their pages might change when serialising (See SPIGOT-3206)
         return one.getType() == two.getType()
-                && one.getDurability() == two.getDurability()
-                && one.getData().equals(two.getData())
-                && one.hasItemMeta() && two.hasItemMeta()
-                && one.getItemMeta() instanceof BookMeta && two.getItemMeta() instanceof BookMeta
-                && one.getItemMeta().serialize().equals(two.getItemMeta().serialize());
+            && one.getDurability() == two.getDurability()
+            && one.getData().equals(two.getData())
+            && one.hasItemMeta() && two.hasItemMeta()
+            && one.getItemMeta() instanceof BookMeta && two.getItemMeta() instanceof BookMeta
+            && one.getItemMeta().serialize().equals(two.getItemMeta().serialize());
     }
 
     /**

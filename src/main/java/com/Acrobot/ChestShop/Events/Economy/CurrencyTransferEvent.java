@@ -33,19 +33,15 @@ public class CurrencyTransferEvent extends Event {
         this(BigDecimal.valueOf(amount), sender, receiver, world);
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * @return Amount of currency
      */
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    /**
-     * @return Amount of currency, as a double
-     * @deprecated Use {@link #getAmount()} if possible
-     */
-    public double getDoubleAmount() {
-        return amount.doubleValue();
     }
 
     /**
@@ -65,6 +61,14 @@ public class CurrencyTransferEvent extends Event {
      */
     public void setAmount(double amount) {
         this.amount = BigDecimal.valueOf(amount);
+    }
+
+    /**
+     * @return Amount of currency, as a double
+     * @deprecated Use {@link #getAmount()} if possible
+     */
+    public double getDoubleAmount() {
+        return amount.doubleValue();
     }
 
     /**
@@ -105,10 +109,6 @@ public class CurrencyTransferEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

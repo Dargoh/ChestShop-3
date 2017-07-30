@@ -47,9 +47,9 @@ public class CreationFeeGetter implements Listener {
 
         if (!Economy.getServerAccountName().isEmpty()) {
             CurrencyAddEvent currencyAddEvent = new CurrencyAddEvent(
-                    BigDecimal.valueOf(shopCreationPrice),
-                    NameManager.getUUID(Economy.getServerAccountName()),
-                    player.getWorld());
+                BigDecimal.valueOf(shopCreationPrice),
+                NameManager.getUUID(Economy.getServerAccountName()),
+                player.getWorld());
             ChestShop.callEvent(currencyAddEvent);
         }
 

@@ -27,17 +27,23 @@ public class ShopDestroyedEvent extends Event {
         this.chest = chest;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * @return Shop's destroyer
      */
-    @Nullable public Player getDestroyer() {
+    @Nullable
+    public Player getDestroyer() {
         return destroyer;
     }
 
     /**
      * @return Shop's chest
      */
-    @Nullable public Chest getChest() {
+    @Nullable
+    public Chest getChest() {
         return chest;
     }
 
@@ -46,10 +52,6 @@ public class ShopDestroyedEvent extends Event {
      */
     public Sign getSign() {
         return sign;
-    }
-
-    public static HandlerList getHandlerList() {
-        return handlers;
     }
 
     @Override

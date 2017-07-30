@@ -23,6 +23,10 @@ public class BuildPermissionEvent extends Event {
         this.sign = sign;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -57,10 +61,6 @@ public class BuildPermissionEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

@@ -51,7 +51,7 @@ public class Migrations {
                 break;
             default:
                 break;
-                //do nothing
+            //do nothing
         }
 
         return currentVersion;

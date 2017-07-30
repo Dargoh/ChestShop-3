@@ -15,7 +15,7 @@ import java.util.UUID;
 
 /**
  * @author Acrobot
- *         Economy management
+ * Economy management
  */
 public class Economy {
     public static String getServerAccountName() {

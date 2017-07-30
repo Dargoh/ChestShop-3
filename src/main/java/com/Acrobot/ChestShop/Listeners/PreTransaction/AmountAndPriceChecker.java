@@ -52,8 +52,8 @@ public class AmountAndPriceChecker implements Listener {
         Inventory clientInventory = event.getClientInventory();
 
         CurrencyCheckEvent currencyCheckEvent = new CurrencyCheckEvent(BigDecimal.valueOf(event.getPrice()),
-                                                        event.getOwner().getUniqueId(),
-                                                        event.getSign().getWorld());
+            event.getOwner().getUniqueId(),
+            event.getSign().getWorld());
         ChestShop.callEvent(currencyCheckEvent);
 
         if (!currencyCheckEvent.hasEnough()) {

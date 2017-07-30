@@ -9,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
-import static com.Acrobot.ChestShop.Signs.ChestShopSign.NAME_LINE;
 import static com.Acrobot.ChestShop.Events.PreShopCreationEvent.CreationOutcome.UNKNOWN_PLAYER;
+import static com.Acrobot.ChestShop.Signs.ChestShopSign.NAME_LINE;
 
 /**
  * @author Acrobot

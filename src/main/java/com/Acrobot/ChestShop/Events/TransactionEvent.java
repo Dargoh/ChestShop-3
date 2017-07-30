@@ -58,6 +58,10 @@ public class TransactionEvent extends Event {
         this.sign = sign;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * @return Type of the transaction
      */
@@ -115,10 +119,6 @@ public class TransactionEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 

@@ -32,19 +32,15 @@ public class CurrencyAddEvent extends Event {
         this(amount, target.getUniqueId(), target.getWorld());
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * @return Amount of currency
      */
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    /**
-     * @return Amount of currency, as a double
-     * @deprecated Use {@link #getAmount()} if possible
-     */
-    public double getDoubleAmount() {
-        return amount.doubleValue();
     }
 
     /**
@@ -64,6 +60,14 @@ public class CurrencyAddEvent extends Event {
      */
     public void setAmount(double amount) {
         this.amount = BigDecimal.valueOf(amount);
+    }
+
+    /**
+     * @return Amount of currency, as a double
+     * @deprecated Use {@link #getAmount()} if possible
+     */
+    public double getDoubleAmount() {
+        return amount.doubleValue();
     }
 
     /**
@@ -97,10 +101,6 @@ public class CurrencyAddEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

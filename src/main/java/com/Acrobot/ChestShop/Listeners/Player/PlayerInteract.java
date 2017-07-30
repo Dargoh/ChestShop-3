@@ -30,8 +30,6 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.UUID;
-
 import static com.Acrobot.Breeze.Utils.BlockUtil.isChest;
 import static com.Acrobot.Breeze.Utils.BlockUtil.isSign;
 import static com.Acrobot.ChestShop.Events.TransactionEvent.TransactionType;
@@ -47,8 +45,7 @@ import static org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK;
 public class PlayerInteract implements Listener {
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public static void onInteract(PlayerInteractEvent event)
-    {
+    public static void onInteract(PlayerInteractEvent event) {
         Block block = event.getClickedBlock();
         if (block == null)
             return;
@@ -118,11 +115,11 @@ public class PlayerInteract implements Listener {
             return null;
 
         OfflinePlayer owner = account.getUuid().version() != 4 // it seems to forget the username when getting by the offline UUID
-                ? Bukkit.getOfflinePlayer(account.getName())   // so we get the OfflinePlayer directly by the name in this case
-                : Bukkit.getOfflinePlayer(account.getUuid());
+            ? Bukkit.getOfflinePlayer(account.getName())   // so we get the OfflinePlayer directly by the name in this case
+            : Bukkit.getOfflinePlayer(account.getUuid());
 
         // check if player exists in economy
-        if(!ChestShopSign.isAdminShop(sign) && (owner == null || owner.getName() == null || !VaultListener.getProvider().hasAccount(owner)))
+        if (!ChestShopSign.isAdminShop(sign) && (owner == null || owner.getName() == null || !VaultListener.getProvider().hasAccount(owner)))
             return null;
 
         Action buy = Properties.REVERSE_BUTTONS ? LEFT_CLICK_BLOCK : RIGHT_CLICK_BLOCK;

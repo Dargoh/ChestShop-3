@@ -26,21 +26,6 @@ public class EntityParser {
     }
 
     /**
-     * Parses the class' fields to a standard SQL format
-     *
-     * @return SQLed class
-     */
-    public String parseToString() {
-        List<String> fields = new LinkedList<String>();
-
-        for (Field field : entity.getDeclaredFields()) {
-            fields.add(convertToSQL(field));
-        }
-
-        return Joiner.on(',').join(fields);
-    }
-
-    /**
      * Converts a field type to SQL type
      *
      * @param field Java's field
@@ -65,5 +50,20 @@ public class EntityParser {
         }
 
         return sqlType;
+    }
+
+    /**
+     * Parses the class' fields to a standard SQL format
+     *
+     * @return SQLed class
+     */
+    public String parseToString() {
+        List<String> fields = new LinkedList<String>();
+
+        for (Field field : entity.getDeclaredFields()) {
+            fields.add(convertToSQL(field));
+        }
+
+        return Joiner.on(',').join(fields);
     }
 }

@@ -27,6 +27,10 @@ public class ProtectionCheckEvent extends Event {
         this.ignoreBuiltInProtection = ignoreBuiltInProtection;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     public boolean isBuiltInProtectionIgnored() {
         return ignoreBuiltInProtection;
     }
@@ -48,10 +52,6 @@ public class ProtectionCheckEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

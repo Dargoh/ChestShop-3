@@ -1,15 +1,13 @@
 package com.Acrobot.ChestShop.Listeners;
 
+import com.Acrobot.ChestShop.Configuration.Properties;
+import com.Acrobot.ChestShop.Events.PreTransactionEvent;
+import com.Acrobot.ChestShop.Events.PreTransactionEvent.TransactionOutcome;
+import fr.xephi.authme.api.NewAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-
-import com.Acrobot.ChestShop.Configuration.Properties;
-import com.Acrobot.ChestShop.Events.PreTransactionEvent;
-import com.Acrobot.ChestShop.Events.PreTransactionEvent.TransactionOutcome;
-
-import fr.xephi.authme.api.NewAPI;
 
 public class AuthMeChestShopListener implements Listener {
 

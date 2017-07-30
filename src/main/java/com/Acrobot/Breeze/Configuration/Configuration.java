@@ -1,19 +1,14 @@
 package com.Acrobot.Breeze.Configuration;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
-import java.util.Scanner;
-
+import com.Acrobot.Breeze.Configuration.Annotations.PrecededBySpace;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.Acrobot.Breeze.Configuration.Annotations.PrecededBySpace;
+import java.io.*;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+import java.util.Scanner;
 
 /**
  * A class which can be used to make configs easier to load

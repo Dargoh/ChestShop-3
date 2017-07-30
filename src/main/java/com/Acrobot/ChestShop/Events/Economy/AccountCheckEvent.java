@@ -28,6 +28,10 @@ public class AccountCheckEvent extends Event {
         this.account = account;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * @return Event's outcome (does the account exist?)
      */
@@ -59,10 +63,6 @@ public class AccountCheckEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

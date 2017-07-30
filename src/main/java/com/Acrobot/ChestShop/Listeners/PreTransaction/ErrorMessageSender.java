@@ -14,9 +14,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
-import static com.Acrobot.ChestShop.Configuration.Messages.CLIENT_DEPOSIT_FAILED;
-import static com.Acrobot.ChestShop.Configuration.Messages.NOT_ENOUGH_STOCK_IN_YOUR_SHOP;
-import static com.Acrobot.ChestShop.Configuration.Messages.NOT_ENOUGH_SPACE_IN_YOUR_SHOP;
+import static com.Acrobot.ChestShop.Configuration.Messages.*;
 
 /**
  * @author Acrobot
@@ -50,12 +48,12 @@ public class ErrorMessageSender implements Listener {
                 if (Properties.SHOW_MESSAGE_FULL_SHOP && !Properties.CSTOGGLE_TOGGLES_FULL_SHOP || !Toggle.isIgnoring(event.getOwner())) {
                     Location loc = event.getSign().getLocation();
                     String messageNotEnoughSpace = Messages.prefix(NOT_ENOUGH_SPACE_IN_YOUR_SHOP)
-                            .replace("%material", getItemNames(event.getStock()))
-                            .replace("%seller", event.getClient().getName())
-                            .replace("%world", loc.getWorld().getName())
-                            .replace("%x", String.valueOf(loc.getBlockX()))
-                            .replace("%y", String.valueOf(loc.getBlockY()))
-                            .replace("%z", String.valueOf(loc.getBlockZ()));
+                        .replace("%material", getItemNames(event.getStock()))
+                        .replace("%seller", event.getClient().getName())
+                        .replace("%world", loc.getWorld().getName())
+                        .replace("%x", String.valueOf(loc.getBlockX()))
+                        .replace("%y", String.valueOf(loc.getBlockY()))
+                        .replace("%z", String.valueOf(loc.getBlockZ()));
                     sendMessageToOwner(event.getOwner(), messageNotEnoughSpace);
                 }
                 message = Messages.NOT_ENOUGH_SPACE_IN_CHEST;
@@ -70,12 +68,12 @@ public class ErrorMessageSender implements Listener {
                 if (Properties.SHOW_MESSAGE_OUT_OF_STOCK && !Properties.CSTOGGLE_TOGGLES_OUT_OF_STOCK || !Toggle.isIgnoring(event.getOwner())) {
                     Location loc = event.getSign().getLocation();
                     String messageOutOfStock = Messages.prefix(NOT_ENOUGH_STOCK_IN_YOUR_SHOP)
-                            .replace("%material", getItemNames(event.getStock()))
-                            .replace("%buyer", event.getClient().getName())
-                            .replace("%world", loc.getWorld().getName())
-                            .replace("%x", String.valueOf(loc.getBlockX()))
-                            .replace("%y", String.valueOf(loc.getBlockY()))
-                            .replace("%z", String.valueOf(loc.getBlockZ()));
+                        .replace("%material", getItemNames(event.getStock()))
+                        .replace("%buyer", event.getClient().getName())
+                        .replace("%world", loc.getWorld().getName())
+                        .replace("%x", String.valueOf(loc.getBlockX()))
+                        .replace("%y", String.valueOf(loc.getBlockY()))
+                        .replace("%z", String.valueOf(loc.getBlockZ()));
                     sendMessageToOwner(event.getOwner(), messageOutOfStock);
                 }
                 message = Messages.NOT_ENOUGH_STOCK;

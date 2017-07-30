@@ -22,7 +22,7 @@ public class BlockUtil {
      */
     public static boolean isSign(Block block) {
         return block.getType() == Material.SIGN_POST
-                || block.getType() == Material.WALL_SIGN;
+            || block.getType() == Material.WALL_SIGN;
     }
 
     /**

@@ -1,21 +1,16 @@
 package com.Acrobot.Breeze.Utils;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BookMeta;
+
+import java.util.*;
 
 /**
  * @author Acrobot
  */
 public class InventoryUtil {
     private static Boolean legacyContents = null;
-   
+
     private static ItemStack[] getStorageContents(Inventory inventory) {
         if (legacyContents == null) {
             try {
@@ -168,8 +163,7 @@ public class InventoryUtil {
     }
 
     // Don't use the armor slots or extra slots
-    private static int effectiveSize(Inventory inventory)
-    {
+    private static int effectiveSize(Inventory inventory) {
         return getStorageContents(inventory).length;
     }
 

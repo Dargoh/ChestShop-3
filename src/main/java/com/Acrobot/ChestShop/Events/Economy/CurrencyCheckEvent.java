@@ -32,6 +32,10 @@ public class CurrencyCheckEvent extends Event {
         this(amount, player.getUniqueId(), player.getWorld());
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * @return Does the account have enough currency available?
      */
@@ -56,14 +60,6 @@ public class CurrencyCheckEvent extends Event {
     }
 
     /**
-     * @return Amount of currency, as a double
-     * @deprecated Use {@link #getAmount()} if possible
-     */
-    public double getDoubleAmount() {
-        return amount.doubleValue();
-    }
-
-    /**
      * Sets the amount of currency transferred
      *
      * @param amount Amount to transfer
@@ -80,6 +76,14 @@ public class CurrencyCheckEvent extends Event {
      */
     public void setAmount(double amount) {
         this.amount = BigDecimal.valueOf(amount);
+    }
+
+    /**
+     * @return Amount of currency, as a double
+     * @deprecated Use {@link #getAmount()} if possible
+     */
+    public double getDoubleAmount() {
+        return amount.doubleValue();
     }
 
     /**
@@ -106,10 +110,6 @@ public class CurrencyCheckEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

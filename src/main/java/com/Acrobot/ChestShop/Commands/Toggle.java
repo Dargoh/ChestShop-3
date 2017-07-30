@@ -18,6 +18,30 @@ import java.util.List;
 public class Toggle implements CommandExecutor {
     private static final List<String> toggledPlayers = new ArrayList<String>();
 
+    public static void clearToggledPlayers() {
+        toggledPlayers.clear();
+    }
+
+    public static boolean isIgnoring(OfflinePlayer player) {
+        return player != null && toggledPlayers.contains(player.getName());
+    }
+
+    public static boolean setIgnoring(Player player, boolean ignoring) {
+        Validate.notNull(player); // Make sure the player instance is not null, in case there are any errors in the code
+
+        if (ignoring) {
+            if (!toggledPlayers.contains(player.getName())) {
+                toggledPlayers.add(player.getName());
+            }
+        } else {
+            if (toggledPlayers.contains(player.getName())) {
+                toggledPlayers.remove(player.getName());
+            }
+        }
+
+        return ignoring;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -42,30 +66,6 @@ public class Toggle implements CommandExecutor {
         }
 
         return true;
-    }
-
-    public static void clearToggledPlayers() {
-        toggledPlayers.clear();
-    }
-
-    public static boolean isIgnoring(OfflinePlayer player) {
-        return player != null && toggledPlayers.contains(player.getName());
-    }
-
-    public static boolean setIgnoring(Player player, boolean ignoring) {
-        Validate.notNull(player); // Make sure the player instance is not null, in case there are any errors in the code
-
-        if (ignoring) {
-            if (!toggledPlayers.contains(player.getName())) {
-                toggledPlayers.add(player.getName());
-            }
-        } else {
-            if (toggledPlayers.contains(player.getName())) {
-                toggledPlayers.remove(player.getName());
-            }
-        }
-
-        return ignoring;
     }
 
 }

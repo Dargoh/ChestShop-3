@@ -21,6 +21,10 @@ public class ItemInfoEvent extends Event {
         this.item = item;
     }
 
+    public static HandlerList getHandlerList() {
+        return handlers;
+    }
+
     /**
      * @return CommandSender who initiated the call
      */
@@ -36,10 +40,6 @@ public class ItemInfoEvent extends Event {
     }
 
     public HandlerList getHandlers() {
-        return handlers;
-    }
-
-    public static HandlerList getHandlerList() {
         return handlers;
     }
 }

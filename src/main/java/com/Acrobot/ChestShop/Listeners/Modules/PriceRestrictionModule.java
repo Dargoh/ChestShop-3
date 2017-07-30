@@ -20,8 +20,8 @@ import static com.Acrobot.ChestShop.Signs.ChestShopSign.PRICE_LINE;
  * @author Acrobot
  */
 public class PriceRestrictionModule implements Listener {
-    private YamlConfiguration configuration;
     private static final double INVALID_PATH = Double.MIN_VALUE;
+    private YamlConfiguration configuration;
 
     public PriceRestrictionModule() {
         File file = new File(ChestShop.getFolder(), "priceLimits.yml");

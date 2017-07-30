@@ -8,13 +8,13 @@ import com.Acrobot.ChestShop.Commands.Version;
 import com.Acrobot.ChestShop.Configuration.Messages;
 import com.Acrobot.ChestShop.Configuration.Properties;
 import com.Acrobot.ChestShop.Database.Migrations;
+import com.Acrobot.ChestShop.Listeners.AuthMeChestShopListener;
 import com.Acrobot.ChestShop.Listeners.Block.BlockPlace;
 import com.Acrobot.ChestShop.Listeners.Block.Break.ChestBreak;
 import com.Acrobot.ChestShop.Listeners.Block.Break.SignBreak;
 import com.Acrobot.ChestShop.Listeners.Block.SignCreate;
 import com.Acrobot.ChestShop.Listeners.Economy.ServerAccountCorrector;
 import com.Acrobot.ChestShop.Listeners.Economy.TaxModule;
-import com.Acrobot.ChestShop.Listeners.AuthMeChestShopListener;
 import com.Acrobot.ChestShop.Listeners.GarbageTextListener;
 import com.Acrobot.ChestShop.Listeners.Item.ItemMoveListener;
 import com.Acrobot.ChestShop.Listeners.ItemInfoListener;
@@ -37,7 +37,6 @@ import com.Acrobot.ChestShop.Metadata.ItemDatabase;
 import com.Acrobot.ChestShop.Signs.RestrictedSign;
 import com.Acrobot.ChestShop.UUIDs.NameManager;
 import com.Acrobot.ChestShop.Updater.Updater;
-
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Marker;
@@ -46,7 +45,6 @@ import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 import org.apache.logging.log4j.core.filter.AbstractFilter;
 import org.apache.logging.log4j.message.Message;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -68,13 +66,12 @@ import java.util.logging.Logger;
  * @author Acrobot
  */
 public class ChestShop extends JavaPlugin {
+    private static final int PROJECT_BUKKITDEV_ID = 31263;
     private static ChestShop plugin;
     private static Server server;
     private static PluginDescriptionFile description;
-
     private static File dataFolder;
     private static ItemDatabase itemDatabase;
-
     private static Logger logger;
     private FileHandler handler;
 
@@ -84,6 +81,80 @@ public class ChestShop extends JavaPlugin {
         description = getDescription();
         server = getServer();
         plugin = this;
+    }
+
+    public static File loadFile(String string) {
+        File file = new File(dataFolder, string);
+
+        return loadFile(file);
+    }
+
+    private static File loadFile(File file) {
+        if (!file.exists()) {
+            try {
+                if (file.getParent() != null) {
+                    file.getParentFile().mkdirs();
+                }
+
+                file.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return file;
+    }
+
+    private static FileHandler loadHandler(String path) {
+        FileHandler handler = null;
+
+        try {
+            handler = new FileHandler(path, true);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return handler;
+    }
+
+    public static ItemDatabase getItemDatabase() {
+        return itemDatabase;
+    }
+
+    public static File getFolder() {
+        return dataFolder;
+    }
+
+    public static Logger getBukkitLogger() {
+        return logger;
+    }
+
+    public static Server getBukkitServer() {
+        return server;
+    }
+
+    public static String getVersion() {
+        return description.getVersion();
+    }
+
+    public static String getPluginName() {
+        return description.getName();
+    }
+
+    public static List<String> getDependencies() {
+        return description.getSoftDepend();
+    }
+
+    public static ChestShop getPlugin() {
+        return plugin;
+    }
+
+    public static void registerListener(Listener listener) {
+        plugin.registerEvent(listener);
+    }
+
+    public static void callEvent(Event event) {
+        Bukkit.getPluginManager().callEvent(event);
     }
 
     public void onEnable() {
@@ -192,40 +263,6 @@ public class ChestShop extends JavaPlugin {
         }
     }
 
-    public static File loadFile(String string) {
-        File file = new File(dataFolder, string);
-
-        return loadFile(file);
-    }
-
-    private static File loadFile(File file) {
-        if (!file.exists()) {
-            try {
-                if (file.getParent() != null) {
-                    file.getParentFile().mkdirs();
-                }
-
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        return file;
-    }
-
-    private static FileHandler loadHandler(String path) {
-        FileHandler handler = null;
-
-        try {
-            handler = new FileHandler(path, true);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-
-        return handler;
-    }
-
     public void onDisable() {
         getServer().getScheduler().cancelTasks(this);
 
@@ -262,7 +299,7 @@ public class ChestShop extends JavaPlugin {
 
         registerEvent(new ItemInfoListener());
         registerEvent(new GarbageTextListener());
-      
+
         Plugin authMe = getServer().getPluginManager().getPlugin("AuthMe");
         if (authMe != null && authMe.isEnabled()) {
             registerEvent(new AuthMeChestShopListener());
@@ -274,6 +311,8 @@ public class ChestShop extends JavaPlugin {
             registerEvent(new ItemMoveListener());
         }
     }
+
+    ///////////////////////////////////////////////////////////////////////////////
 
     private void registerShopRemovalEvents() {
         registerEvent(new ShopRefundListener());
@@ -352,55 +391,11 @@ public class ChestShop extends JavaPlugin {
         new org.bstats.MetricsLite(this);
     }
 
-    private static final int PROJECT_BUKKITDEV_ID = 31263;
-
     private void startUpdater() {
         if (Properties.TURN_OFF_UPDATES) {
             return;
         }
 
         new Updater(this, PROJECT_BUKKITDEV_ID, this.getFile(), Updater.UpdateType.DEFAULT, true);
-    }
-
-    ///////////////////////////////////////////////////////////////////////////////
-
-    public static ItemDatabase getItemDatabase() {
-        return itemDatabase;
-    }
-
-    public static File getFolder() {
-        return dataFolder;
-    }
-
-    public static Logger getBukkitLogger() {
-        return logger;
-    }
-
-    public static Server getBukkitServer() {
-        return server;
-    }
-
-    public static String getVersion() {
-        return description.getVersion();
-    }
-
-    public static String getPluginName() {
-        return description.getName();
-    }
-
-    public static List<String> getDependencies() {
-        return description.getSoftDepend();
-    }
-
-    public static ChestShop getPlugin() {
-        return plugin;
-    }
-
-    public static void registerListener(Listener listener) {
-        plugin.registerEvent(listener);
-    }
-
-    public static void callEvent(Event event) {
-        Bukkit.getPluginManager().callEvent(event);
     }
 }

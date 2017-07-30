@@ -18,6 +18,14 @@ public class Heroes implements Listener {
         this.heroes = heroes;
     }
 
+    public static Heroes getHeroes(Plugin plugin) {
+        if (!(plugin instanceof com.herocraftonline.heroes.Heroes)) {
+            return null;
+        }
+
+        return new Heroes((com.herocraftonline.heroes.Heroes) plugin);
+    }
+
     @EventHandler
     public void shopCreated(ShopCreatedEvent event) {
         double heroExp = Properties.HEROES_EXP;
@@ -33,13 +41,5 @@ public class Heroes implements Listener {
         } else {
             hero.gainExp(heroExp, HeroClass.ExperienceType.EXTERNAL, event.getPlayer().getLocation());
         }
-    }
-
-    public static Heroes getHeroes(Plugin plugin) {
-        if (!(plugin instanceof com.herocraftonline.heroes.Heroes)) {
-            return null;
-        }
-
-        return new Heroes((com.herocraftonline.heroes.Heroes) plugin);
     }
 }

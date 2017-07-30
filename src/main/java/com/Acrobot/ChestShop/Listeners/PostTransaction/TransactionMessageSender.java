@@ -7,7 +7,6 @@ import com.Acrobot.ChestShop.Configuration.Messages;
 import com.Acrobot.ChestShop.Configuration.Properties;
 import com.Acrobot.ChestShop.Economy.Economy;
 import com.Acrobot.ChestShop.Events.TransactionEvent;
-import com.Acrobot.ChestShop.UUIDs.NameManager;
 import com.google.common.base.Joiner;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -100,7 +99,7 @@ public class TransactionMessageSender implements Listener {
 
     private static String formatMessage(String message, String item, String price) {
         return Messages.prefix(message)
-                .replace("%item", item)
-                .replace("%price", price);
+            .replace("%item", item)
+            .replace("%price", price);
     }
 }

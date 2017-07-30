@@ -18,6 +18,28 @@ import static com.Acrobot.ChestShop.Configuration.Messages.iteminfo;
  * @author Acrobot
  */
 public class ItemInfo implements CommandExecutor {
+    private static String getNameAndID(ItemStack item) {
+        String itemName = MaterialUtil.getName(item);
+
+        return ChatColor.GRAY + itemName + ChatColor.WHITE + "      " + item.getTypeId();
+    }
+
+    private static String getDurability(ItemStack item) {
+        if (item.getDurability() != 0) {
+            return ChatColor.DARK_GREEN + ":" + Integer.toString(item.getDurability());
+        } else {
+            return "";
+        }
+    }
+
+    private static String getMetadata(ItemStack item) {
+        if (!item.hasItemMeta()) {
+            return "";
+        }
+
+        return ChatColor.GOLD + "#" + MaterialUtil.Metadata.getItemCode(item);
+    }
+
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         ItemStack item;
 
@@ -45,27 +67,5 @@ public class ItemInfo implements CommandExecutor {
         ChestShop.callEvent(event);
 
         return true;
-    }
-
-    private static String getNameAndID(ItemStack item) {
-        String itemName = MaterialUtil.getName(item);
-
-        return ChatColor.GRAY + itemName + ChatColor.WHITE + "      " + item.getTypeId();
-    }
-
-    private static String getDurability(ItemStack item) {
-        if (item.getDurability() != 0) {
-            return ChatColor.DARK_GREEN + ":" + Integer.toString(item.getDurability());
-        } else {
-            return "";
-        }
-    }
-
-    private static String getMetadata(ItemStack item) {
-        if (!item.hasItemMeta()) {
-            return "";
-        }
-
-        return ChatColor.GOLD + "#" + MaterialUtil.Metadata.getItemCode(item);
     }
 }

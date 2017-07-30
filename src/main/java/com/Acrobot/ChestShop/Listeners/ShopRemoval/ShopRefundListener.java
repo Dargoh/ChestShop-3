@@ -15,7 +15,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 
 import java.math.BigDecimal;
-import java.util.UUID;
 
 import static com.Acrobot.ChestShop.Permission.NOFEE;
 import static com.Acrobot.ChestShop.Signs.ChestShopSign.NAME_LINE;
@@ -42,9 +41,9 @@ public class ShopRefundListener implements Listener {
 
         if (!Economy.getServerAccountName().isEmpty()) {
             CurrencySubtractEvent currencySubtractEvent = new CurrencySubtractEvent(
-                    BigDecimal.valueOf(refundPrice),
-                    NameManager.getUUID(Economy.getServerAccountName()),
-                    event.getSign().getWorld());
+                BigDecimal.valueOf(refundPrice),
+                NameManager.getUUID(Economy.getServerAccountName()),
+                event.getSign().getWorld());
             ChestShop.callEvent(currencySubtractEvent);
         }
 

@@ -1,12 +1,9 @@
 package com.Acrobot.ChestShop.Listeners.Economy.Plugins;
 
-import java.math.BigDecimal;
-
-import javax.annotation.Nullable;
-
+import com.Acrobot.ChestShop.ChestShop;
+import com.Acrobot.ChestShop.Events.Economy.*;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
-
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -14,15 +11,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
-import com.Acrobot.ChestShop.ChestShop;
-import com.Acrobot.ChestShop.Events.Economy.AccountCheckEvent;
-import com.Acrobot.ChestShop.Events.Economy.CurrencyAddEvent;
-import com.Acrobot.ChestShop.Events.Economy.CurrencyAmountEvent;
-import com.Acrobot.ChestShop.Events.Economy.CurrencyCheckEvent;
-import com.Acrobot.ChestShop.Events.Economy.CurrencyFormatEvent;
-import com.Acrobot.ChestShop.Events.Economy.CurrencyHoldEvent;
-import com.Acrobot.ChestShop.Events.Economy.CurrencySubtractEvent;
-import com.Acrobot.ChestShop.Events.Economy.CurrencyTransferEvent;
+import javax.annotation.Nullable;
+import java.math.BigDecimal;
 
 /**
  * Represents a Vault connector
@@ -32,12 +22,12 @@ import com.Acrobot.ChestShop.Events.Economy.CurrencyTransferEvent;
 public class VaultListener implements Listener {
     private static Economy provider;
 
-    private VaultListener(Economy provider) { VaultListener.provider = provider; }
+    private VaultListener(Economy provider) {
+        VaultListener.provider = provider;
+    }
 
-    public static Economy getProvider() { return provider; }
-
-    public boolean transactionCanFail() {
-        return provider.getName().equals("Gringotts") || provider.getName().equals("GoldIsMoney") || provider.getName().equals("MultiCurrency");
+    public static Economy getProvider() {
+        return provider;
     }
 
     /**
@@ -45,7 +35,8 @@ public class VaultListener implements Listener {
      *
      * @return VaultListener
      */
-    public static @Nullable VaultListener initializeVault() {
+    public static @Nullable
+    VaultListener initializeVault() {
         if (Bukkit.getPluginManager().getPlugin("Vault") == null) {
             return null;
         }
@@ -66,6 +57,27 @@ public class VaultListener implements Listener {
     }
 
     @EventHandler
+    public static void onCurrencyTransfer(CurrencyTransferEvent event) {
+        if (event.hasBeenTransferred()) {
+            return;
+        }
+
+        CurrencySubtractEvent currencySubtractEvent = new CurrencySubtractEvent(event.getAmount(), event.getSender(), event.getWorld());
+        ChestShop.callEvent(currencySubtractEvent);
+
+        if (!currencySubtractEvent.isSubtracted()) {
+            return;
+        }
+
+        CurrencyAddEvent currencyAddEvent = new CurrencyAddEvent(currencySubtractEvent.getAmount(), event.getReceiver(), event.getWorld());
+        ChestShop.callEvent(currencyAddEvent);
+    }
+
+    public boolean transactionCanFail() {
+        return provider.getName().equals("Gringotts") || provider.getName().equals("GoldIsMoney") || provider.getName().equals("MultiCurrency");
+    }
+
+    @EventHandler
     public void onAmountCheck(CurrencyAmountEvent event) {
         if (!event.getAmount().equals(BigDecimal.ZERO)) {
             return;
@@ -73,7 +85,7 @@ public class VaultListener implements Listener {
 
         double balance = 0;
         //String lastSeen = NameManager.getLastSeenName(event.getAccount());
-		OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
+        OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
 
         if (lastSeen != null) {
             balance = provider.getBalance(lastSeen, event.getWorld().getName());
@@ -94,7 +106,7 @@ public class VaultListener implements Listener {
 
         World world = event.getWorld();
         //String lastSeen = NameManager.getLastSeenName(event.getAccount());
-		OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
+        OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
 
         if (lastSeen != null) {
             if (provider.has(lastSeen, world.getName(), event.getDoubleAmount())) {
@@ -113,7 +125,7 @@ public class VaultListener implements Listener {
 
         World world = event.getWorld();
         //String lastSeen = NameManager.getLastSeenName(event.getAccount());
-		OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
+        OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
 
         event.hasAccount(lastSeen != null && provider.hasAccount(lastSeen, world.getName()));
     }
@@ -136,7 +148,7 @@ public class VaultListener implements Listener {
 
         World world = event.getWorld();
         //String lastSeen = NameManager.getLastSeenName(event.getTarget());
-		OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getTarget());
+        OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getTarget());
 
         if (lastSeen != null) {
             provider.depositPlayer(lastSeen, world.getName(), event.getDoubleAmount());
@@ -151,28 +163,11 @@ public class VaultListener implements Listener {
 
         World world = event.getWorld();
         //String lastSeen = NameManager.getLastSeenName(event.getTarget());
-		OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getTarget());
+        OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getTarget());
 
         if (lastSeen != null) {
             provider.withdrawPlayer(lastSeen, world.getName(), event.getDoubleAmount());
         }
-    }
-
-    @EventHandler
-    public static void onCurrencyTransfer(CurrencyTransferEvent event) {
-        if (event.hasBeenTransferred()) {
-            return;
-        }
-
-        CurrencySubtractEvent currencySubtractEvent = new CurrencySubtractEvent(event.getAmount(), event.getSender(), event.getWorld());
-        ChestShop.callEvent(currencySubtractEvent);
-
-        if (!currencySubtractEvent.isSubtracted()) {
-            return;
-        }
-
-        CurrencyAddEvent currencyAddEvent = new CurrencyAddEvent(currencySubtractEvent.getAmount(), event.getReceiver(), event.getWorld());
-        ChestShop.callEvent(currencyAddEvent);
     }
 
     @EventHandler
@@ -182,7 +177,7 @@ public class VaultListener implements Listener {
         }
 
         //String lastSeen = NameManager.getLastSeenName(event.getAccount());
-		OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
+        OfflinePlayer lastSeen = Bukkit.getOfflinePlayer(event.getAccount());
         String world = event.getWorld().getName();
 
         if (lastSeen == null) {

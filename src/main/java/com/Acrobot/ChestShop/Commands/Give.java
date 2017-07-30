@@ -20,6 +20,20 @@ import java.util.List;
  */
 public class Give implements CommandExecutor {
 
+    private static ItemStack getItem(String[] arguments, List<Integer> disregardedElements) {
+        StringBuilder builder = new StringBuilder(arguments.length * 5);
+
+        for (int index = 0; index < arguments.length; ++index) {
+            if (disregardedElements.contains(index)) {
+                continue;
+            }
+
+            builder.append(arguments[index]).append(' ');
+        }
+
+        return MaterialUtil.getItem(builder.toString());
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!Permission.has(sender, Permission.ADMIN)) {
@@ -77,23 +91,9 @@ public class Give implements CommandExecutor {
         InventoryUtil.add(item, receiver.getInventory());
 
         sender.sendMessage(Messages.prefix(Messages.ITEM_GIVEN
-                .replace("%item", MaterialUtil.getName(item))
-                .replace("%player", receiver.getName())));
+            .replace("%item", MaterialUtil.getName(item))
+            .replace("%player", receiver.getName())));
 
         return true;
-    }
-
-    private static ItemStack getItem(String[] arguments, List<Integer> disregardedElements) {
-        StringBuilder builder = new StringBuilder(arguments.length * 5);
-
-        for (int index = 0; index < arguments.length; ++index) {
-            if (disregardedElements.contains(index)) {
-                continue;
-            }
-
-            builder.append(arguments[index]).append(' ');
-        }
-
-        return MaterialUtil.getItem(builder.toString());
     }
 }

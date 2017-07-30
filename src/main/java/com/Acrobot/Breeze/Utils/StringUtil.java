@@ -58,6 +58,7 @@ public class StringUtil {
 
     /**
      * Strips colour codes from a string
+     *
      * @param string String to strip
      * @return Stripped string
      */
@@ -67,6 +68,7 @@ public class StringUtil {
 
     /**
      * Stips colour codes from an array of strings
+     *
      * @param strings Strings to strip the codes from
      * @return Stripped strings
      */

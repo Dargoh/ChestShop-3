@@ -1,10 +1,9 @@
 package com.Acrobot.Breeze.Database;
 
+import javax.persistence.Entity;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import javax.persistence.Entity;
 
 /**
  * Database class, which can be used to connect to JDBC
